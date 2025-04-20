@@ -1,4 +1,4 @@
 reportlab
-yaml
+PyYAML
 beautifulsoup4
 requests
