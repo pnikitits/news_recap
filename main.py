@@ -28,10 +28,10 @@ except yaml.YAMLError as e:
     
 
 OUTPUT_PATH = config.get("files", {}).get("output_pdf", str(BASE_DIR / "sample_output.pdf"))
-LOG_FILENAME = config.get("files", {}).get("log_file", str(BASE_DIR / "auto_news_log.log"))
+LOG_FILENAME = config.get("files", {}).get("log_file", str(BASE_DIR / "doc/auto_news_log.log"))
 LOGGING_LEVEL = getattr(logging, config.get("logging", {}).get("level", "INFO").upper())
 LOGGING_FORMAT = config.get("logging", {}).get("format", "%(asctime)s - %(levelname)s - %(message)s")
-LLM_PATH = config.get("files", {}).get("llm_path", str(BASE_DIR / "Meta-Llama-3.1-8B-Instruct-Q8_0.gguf"))
+LLM_PATH = config.get("files", {}).get("llm_path", str(BASE_DIR / "models/Meta-Llama-3.1-8B-Instruct-Q8_0.gguf"))
 NEWS_WEB_URL = config.get("content", {}).get("news_source", "https://www.bbc.com/news")
 NEWS_N_ARTICLES = config.get("content", {}).get("n_articles", 15)    
 
@@ -56,7 +56,7 @@ def green(text: str) -> str:
 if __name__ == "__main__":
     model = Model(LLM_PATH)
     
-    headlines = analyze_and_fetch_bbc_headlines()
+    headlines = analyze_and_fetch_bbc_headlines(n_articles=NEWS_N_ARTICLES, url=NEWS_WEB_URL)
     headlines = [h.get_text().strip() for h in headlines]
     
     responses = []

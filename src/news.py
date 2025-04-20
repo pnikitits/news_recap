@@ -3,12 +3,11 @@ from bs4 import BeautifulSoup
 import re
 
 
-def analyze_and_fetch_bbc_headlines():
+def analyze_and_fetch_bbc_headlines(n_articles: int, url: str) -> list[str]:
     """
     Analyze the BBC News website structure and fetch top headlines.
     This script adapts to changes in the website's HTML structure.
     """
-    url = "https://www.bbc.com/news"
     
     try:
         # Add user-agent header to mimic a browser request
@@ -122,7 +121,7 @@ def analyze_and_fetch_bbc_headlines():
                 unique_headline_texts.add(text)
                 filtered_headlines.append(headline)
         
-        headlines = filtered_headlines[:15]  # Limit to top 15 headlines
+        headlines = filtered_headlines[:n_articles] if len(filtered_headlines) > n_articles else filtered_headlines
         
         if not headlines:
             print("No headlines found. The website structure may be significantly different.")

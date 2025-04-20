@@ -1,7 +1,7 @@
 files:
   output_pdf: "sample_output.pdf"
-  log_file: "auto_news_log.log"
-  llm_path: "Meta-Llama-3.1-8B-Instruct-Q8_0.gguf"
+  log_file: "doc/auto_news_log.log"
+  llm_path: "models/Meta-Llama-3.1-8B-Instruct-Q8_0.gguf"
 
 content:
   news_source: "https://www.bbc.com/news"

@@ -32,7 +32,7 @@ def format_chat_prompt(messages):
     
     
 class Model:
-    def __init__(self, model_path):
+    def __init__(self, model_path: str):
         self.model = Llama(
             model_path=model_path,
             n_ctx=1024,
@@ -41,7 +41,10 @@ class Model:
             verbose=False,
         )
         
-    def run(self, system_prompt=None, user_prompt=None, conversation=None, remember_conversation=False):
+    def run(self, system_prompt: str=None,
+            user_prompt: str=None,
+            conversation: list=None,
+            remember_conversation:bool=False) -> str:
         """
         Run Llama model with properly formatted chat prompt.
         
@@ -74,7 +77,7 @@ class Model:
         )
         
         generated_text = output["choices"][0]["text"]
-        for token in ["|</assistant|>", "</|user|>", "</assistant>", "<|user|>", "<|assistant|>", "|"]:
+        for token in ["|</assistant|>", "</|user|>", "</assistant>", "<|user|>", "<|assistant|>", "</assistant>", "|"]:
             generated_text = generated_text.replace(token, "").strip()
         
         
