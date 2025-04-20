@@ -44,15 +44,6 @@ logging.basicConfig(
     
 
 
-
-def red(text: str) -> str:
-    return f"\033[91m{str(text)}\033[0m"
-def green(text: str) -> str:
-    return f"\033[92m{str(text)}\033[0m"
-
-
-
-
 if __name__ == "__main__":
     model = Model(LLM_PATH)
     
@@ -70,12 +61,10 @@ if __name__ == "__main__":
         
         response = model.run(system_prompt=system, user_prompt=user).strip().lower()
         if "depressing" in response:
-            response = red(response)
             responses.append("depressing")
         else:
-            response = green(response)
             responses.append("ok")
-        print(f"[{response}] {headline}")
+        logging.info(f"[{response}] {headline}")
         
         
     

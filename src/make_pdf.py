@@ -6,6 +6,7 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib import colors
 from datetime import datetime
+import logging
 
 
 def generate_pdf(positive_headlines: list[str], negative_headlines: list[str], output_path: str, font_path: str = None):
@@ -59,7 +60,7 @@ def generate_pdf(positive_headlines: list[str], negative_headlines: list[str], o
     # Build PDF
     doc.build(content, onFirstPage=add_footer, onLaterPages=add_footer)
 
-    print(f"PDF created successfully at: {output_path}")
+    logging.info(f"PDF created successfully at: {output_path}")
     return output_path
 
 

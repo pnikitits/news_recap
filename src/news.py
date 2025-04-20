@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import re
+import logging
 
 
 def analyze_and_fetch_bbc_headlines(n_articles: int, url: str) -> list[str]:
@@ -16,14 +17,14 @@ def analyze_and_fetch_bbc_headlines(n_articles: int, url: str) -> list[str]:
         }
         
         # Make the request
-        print(f"Fetching BBC News website...")
+        logging.info(f"Fetching News website...")
         response = requests.get(url, headers=headers, timeout=10)
         response.raise_for_status()
         
         # Parse the HTML content
         soup = BeautifulSoup(response.text, 'html.parser')
         
-        print("Analyzing website structure to locate headlines...")
+        logging.info("Analyzing website structure to locate headlines...")
         
         # Try multiple strategies to find headline elements
         headline_candidates = []
@@ -84,7 +85,7 @@ def analyze_and_fetch_bbc_headlines(n_articles: int, url: str) -> list[str]:
             most_common_pattern = max(patterns.items(), key=lambda x: len(x[1]))
             pattern_key, pattern_candidates = most_common_pattern
             
-            print(f"Identified likely headline pattern: {pattern_key} with {len(pattern_candidates)} matches")
+            logging.info(f"Identified likely headline pattern: {pattern_key} with {len(pattern_candidates)} matches")
             
             # Extract tag and class from the pattern key
             tag, class_str = pattern_key.split(':')
@@ -124,14 +125,14 @@ def analyze_and_fetch_bbc_headlines(n_articles: int, url: str) -> list[str]:
         headlines = filtered_headlines[:n_articles] if len(filtered_headlines) > n_articles else filtered_headlines
         
         if not headlines:
-            print("No headlines found. The website structure may be significantly different.")
+            logging.warning("No headlines found. The website structure may be significantly different.")
             return
 
             
         return headlines
         
     except requests.exceptions.RequestException as e:
-        print(f"Error fetching the BBC News website: {e}")
+        logging.error(f"Error fetching the News website: {e}")
     except Exception as e:
-        print(f"An unexpected error occurred: {e}")
+        logging.error(f"An unexpected error occurred: {e}")
         
