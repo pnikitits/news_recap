@@ -1,0 +1,12 @@
+files:
+  output_pdf: "sample_output.pdf"
+  log_file: "auto_news_log.log"
+  llm_path: "Meta-Llama-3.1-8B-Instruct-Q8_0.gguf"
+
+content:
+  news_source: "https://www.bbc.com/news"
+  n_articles: 15
+
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(levelname)s - %(message)s"
