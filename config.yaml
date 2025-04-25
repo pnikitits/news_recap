@@ -1,5 +1,5 @@
 files:
-  output_pdf: "sample_output.pdf"
+  output_pdf: "/Users/pierrenikitits/Desktop/recap.pdf"
   log_file: "doc/auto_news_log.log"
   llm_path: "models/Meta-Llama-3.1-8B-Instruct-Q8_0.gguf"
 

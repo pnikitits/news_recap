@@ -74,3 +74,5 @@ if __name__ == "__main__":
         negative_headlines=negative_headlines,
         output_path=OUTPUT_PATH,
     )
+
+    del model
