@@ -23,29 +23,37 @@ def generate_pdf(positive_headlines: list[str], negative_headlines: list[str], o
         base_font = 'Times-Roman'
 
     # Styles
+    low_visibility_alpha = 0.4
+    
     styles = getSampleStyleSheet()
     styles.add(ParagraphStyle(name='Heading1Center', fontName=base_font, fontSize=20, alignment=1, spaceAfter=12))
-    styles.add(ParagraphStyle(name='SubHeading', fontName=base_font, fontSize=16, spaceBefore=12, spaceAfter=6, textColor=colors.darkblue))
-    styles.add(ParagraphStyle(name='Headline', fontName=base_font, fontSize=12, leading=15))
+    
+    styles.add(ParagraphStyle(name='SubHeading', fontName=base_font, fontSize=16, spaceBefore=12, spaceAfter=6, textColor=colors.Color(0, 0, 0.52, alpha=1)))
+    styles.add(ParagraphStyle(name='LowVisibilitySubHeading', fontName=base_font, fontSize=16, spaceBefore=12, spaceAfter=6, textColor=colors.Color(0, 0, 0.52, alpha=low_visibility_alpha)))
+    
+    styles.add(ParagraphStyle(name='NormalText', fontName=base_font, fontSize=12, leading=15, textColor=colors.Color(0, 0, 0, alpha=1)))
+    styles.add(ParagraphStyle(name='LowVisibilityText', fontName=base_font, fontSize=10, leading=12, textColor=colors.Color(0, 0, 0, alpha=low_visibility_alpha)))
+    
     styles.add(ParagraphStyle(name='Footer', fontName=base_font, fontSize=10, alignment=1, textColor=colors.grey))
 
     content = []
 
     # Title
-    content.append(Paragraph("News Summary", styles['Heading1Center']))
+    title_text = f"News Summary - {datetime.now().strftime('%d %B %Y')}" # d for day, B for full month name, Y for full year
+    content.append(Paragraph(title_text, styles['Heading1Center']))
     content.append(Spacer(1, 12))
 
     # Positive Headlines
     content.append(Paragraph("Ok News", styles['SubHeading']))
     for headline in positive_headlines:
-        content.append(Paragraph("• " + headline, styles['Headline']))
+        content.append(Paragraph("• " + headline, styles['NormalText']))
 
     content.append(Spacer(1, 20))
 
     # Negative Headlines
-    content.append(Paragraph("Depressing News", styles['SubHeading']))
+    content.append(Paragraph("Depressing News", styles['LowVisibilitySubHeading']))
     for headline in negative_headlines:
-        content.append(Paragraph("• " + headline, styles['Headline']))
+        content.append(Paragraph("• " + headline, styles['LowVisibilityText']))
 
     # Add footer with date and optional page numbers
     def add_footer(canvas, doc):
