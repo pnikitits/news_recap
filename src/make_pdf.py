@@ -23,7 +23,7 @@ def generate_pdf(positive_headlines: list[str], negative_headlines: list[str], o
         base_font = 'Times-Roman'
 
     # Styles
-    low_visibility_alpha = 0.4
+    low_visibility_alpha = 0.3
     
     styles = getSampleStyleSheet()
     styles.add(ParagraphStyle(name='Heading1Center', fontName=base_font, fontSize=20, alignment=1, spaceAfter=12))

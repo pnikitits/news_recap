@@ -1,7 +1,6 @@
 *.log
 __pycache__
 *.gguf
-*.pdf
 venv
 .vscode
 .DS_Store
